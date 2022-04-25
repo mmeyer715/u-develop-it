@@ -26,10 +26,21 @@ app.use((req, res) => {
     res.status(404).end();
 });
 
-// testing connection to database
-db.query(`Select * FROM candidates`, (err, rows) => {
-    console.log(rows);
+// GET a single candidate
+db.query(`Select * FROM candidates WHERE id=1`, (err, row) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(row);
 });
+
+// delete candidate
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, results) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(results);
+// });
 
 // testing server connection
 app.get('/', (req, res) => {
