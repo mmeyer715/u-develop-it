@@ -1,16 +1,34 @@
 // required packages
 const express = require('express');
+const mysql = require('mysql2');
 
-//variables
+// variables
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-//middleware
+// middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-//response if users request not found
+
+// connecting to mysql database
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'Zach_0816!',
+        database: 'election'
+    },
+    console.log('Connected to the election database.')
+);
+
+// response if users request not found
 app.use((req, res) => {
     res.status(404).end();
+});
+
+// testing connection to database
+db.query(`Select * FROM candidates`, (err, rows) => {
+    console.log(rows);
 });
 
 // testing server connection
